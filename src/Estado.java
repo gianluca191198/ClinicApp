@@ -1,0 +1,5 @@
+
+public enum Estado {
+	
+	DISPONIBLE,ASIGNADO,AUSENTE,CUMPLIDO;
+}
