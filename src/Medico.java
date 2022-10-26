@@ -3,10 +3,21 @@ import java.util.ArrayList;
 public class Medico {
 	
 	private String nombre;
-	private ArrayList<TurnoLaboral> turnoLaboral = new ArrayList<TurnoLaboral>();
+	private TurnoLaboral TURNO_LABORAL;
+	private CalendarioTurnos calendarioTurnos;
 	
-	public void agregarTurnosLaborales(TurnoLaboral turno) {
-		turnoLaboral.add(turno);
+	public Medico(String nombre, TurnoLaboral TURNO_LABORAL) {
+		this.nombre = nombre;
+		calendarioTurnos = new CalendarioTurnos(this);
+		this.TURNO_LABORAL = TURNO_LABORAL;
+	}
+	
+	public String obtenerNombre() {
+		return this.nombre;
+	}
+	
+	public TurnoLaboral obtenerTurnoLaboral(){
+		return this.TURNO_LABORAL;
 	}
 	
 }
