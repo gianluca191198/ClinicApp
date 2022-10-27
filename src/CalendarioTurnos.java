@@ -19,8 +19,16 @@ public class CalendarioTurnos {
 		}
 	}
 	
-	private boolean comprobarDisponibilidad(LocalDate fecha, LocalTime hora ) {
+	public boolean comprobarDisponibilidad(LocalDate fecha, LocalTime hora ) {
 		boolean disponibilidad = true;
+		
+		if(fecha.getDayOfWeek().getValue() == 6 || fecha.getDayOfWeek().getValue() == 7) {
+			return false;
+		}
+		if(hora.compareTo(medico.obtenerHoraComienzoTurnoLaboral()) < 0 && hora.compareTo(medico.obtenerHoraFinTurnoLaboral()) > 0 ) {
+			return false;
+		}
+		
 		for(int i = 0; i < turnos.size(); i++) {
 			if(turnos.get(i).obtenerFecha() == fecha) {
 				if(hora.compareTo(turnos.get(i).obtenerHora()) > 0 && hora.compareTo(turnos.get(i).obtenerHoraFin()) < 0 ) {

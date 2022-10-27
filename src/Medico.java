@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Medico {
@@ -18,6 +19,22 @@ public class Medico {
 	
 	public TurnoLaboral obtenerTurnoLaboral(){
 		return this.TURNO_LABORAL;
+	}
+	
+	public LocalTime obtenerHoraComienzoTurnoLaboral() {
+		if(TURNO_LABORAL == TurnoLaboral.MANIANA) {
+			return LocalTime.parse("07:00:00");
+		}else {
+			return LocalTime.parse("16:00:00");
+		}
+	}
+	
+	public LocalTime obtenerHoraFinTurnoLaboral() {
+		if(TURNO_LABORAL == TurnoLaboral.MANIANA) {
+			return LocalTime.parse("15:00:00");
+		}else {
+			return LocalTime.parse("20:00:00");
+		}
 	}
 	
 }
