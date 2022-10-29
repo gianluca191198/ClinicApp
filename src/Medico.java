@@ -6,11 +6,14 @@ public class Medico {
 	private String nombre;
 	private TurnoLaboral TURNO_LABORAL;
 	private CalendarioTurnos calendarioTurnos;
+	private ArrayList<Especialidad> especialidades= new ArrayList<Especialidad>();
 	
-	public Medico(String nombre, TurnoLaboral TURNO_LABORAL) {
+	public Medico(String nombre, TurnoLaboral TURNO_LABORAL, Especialidad especialidad) {
 		this.nombre = nombre;
-		calendarioTurnos = new CalendarioTurnos(this);
+		this.calendarioTurnos = new CalendarioTurnos(this);
 		this.TURNO_LABORAL = TURNO_LABORAL;
+		this.especialidades.add(especialidad);
+		
 	}
 	
 	public String obtenerNombre() {
@@ -35,6 +38,10 @@ public class Medico {
 		}else {
 			return LocalTime.parse("20:00:00");
 		}
+	}
+	
+	public void agregarEspecialidad(Especialidad especialidad) {
+		especialidades.add(especialidad);
 	}
 	
 }

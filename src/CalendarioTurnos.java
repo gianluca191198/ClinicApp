@@ -11,9 +11,9 @@ public class CalendarioTurnos {
 		this.medico = medico;
 	}
 	
-	public void reservarTurno(LocalDate fecha, LocalTime hora ) {
+	public void reservarTurno(LocalDate fecha, LocalTime hora, Prestacion prestacion, Consultorio consultorio) {
 		if(comprobarDisponibilidad(fecha, hora)) {
-			turnos.add(new Turno(fecha, hora, medico));
+			turnos.add(new Turno(fecha, hora, medico, prestacion, consultorio));
 		}else {
 			System.out.println("Turno no disponible en la fecha y hora seleccionada");
 		}

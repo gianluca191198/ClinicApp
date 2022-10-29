@@ -5,20 +5,20 @@ import java.time.LocalTime;
 public class Turno {
 	
 	private boolean esSobreTurno = false;
-	//private Consultorio consultorio;
+	private Consultorio consultorio;
 	private LocalDate fecha;
 	private LocalTime hora;
 	private LocalTime horaFin; 
 	private Medico medico;
 	private boolean asistio = false;
-	//private Prestacion prestacion;
+	private Prestacion prestacion;
 	
-	public Turno(LocalDate fecha, LocalTime hora, Medico medico) {
+	public Turno(LocalDate fecha, LocalTime hora, Medico medico, Prestacion prestacion, Consultorio consultorio) {
 		this.fecha = fecha;
 		this.hora = hora;
 		this.horaFin = hora.plusMinutes(30);
 		this.medico = medico;
-		//prestacion
+		this.prestacion = prestacion;
 	}
 	
 	public LocalDate obtenerFecha() {

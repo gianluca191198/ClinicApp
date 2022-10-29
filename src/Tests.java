@@ -18,8 +18,8 @@ class Tests {
 	}
 	
 	@Test
-	void comprobarDisponibilidadDiaSabadoODomingoNoDisponible() {
-		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA);
+	void comprobarDisponibilidadDiaSabadoODomingoNoDisponible() {		
+		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA);
 		CalendarioTurnos calendario = new CalendarioTurnos(medico);
 		LocalDate sabado = LocalDate.parse("2022-10-29"); 
 		LocalDate domingo = LocalDate.parse("2022-10-30");
@@ -33,7 +33,7 @@ class Tests {
 	
 	@Test
 	void comprobarDisponibilidadDiasHabilesDisponible() {
-		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA);
+		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA);
 		CalendarioTurnos calendario = new CalendarioTurnos(medico);
 		LocalDate lunes = LocalDate.parse("2022-10-24");
 		LocalDate martes = LocalDate.parse("2022-10-25"); 
@@ -51,8 +51,8 @@ class Tests {
 	
 	@Test
 	void comprobarDisponibilidadDiaHabilHorarioNoLaboralNoDisponible() {
-		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA);
-		Medico medico2 = new Medico("Favaloro", TurnoLaboral.TARDE);
+		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA);
+		Medico medico2 = new Medico("Favaloro2", TurnoLaboral.TARDE, Especialidad.CARDIOLOGIA);
 		
 		CalendarioTurnos calendario = new CalendarioTurnos(medico);
 		CalendarioTurnos calendario2 = new CalendarioTurnos(medico2);
