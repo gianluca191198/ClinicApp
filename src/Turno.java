@@ -19,6 +19,7 @@ public class Turno {
 		this.horaFin = hora.plusMinutes(30);
 		this.medico = medico;
 		this.prestacion = prestacion;
+		this.consultorio = consultorio;
 	}
 	
 	public LocalDate obtenerFecha() {
