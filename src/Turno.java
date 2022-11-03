@@ -49,4 +49,12 @@ public class Turno {
 	public boolean esSobreTurno() {
 		return esSobreTurno;
 	}
+	
+	public Consultorio obtenerConsultorio() {
+		return consultorio;
+	}
+	
+	public Prestacion obtenerPrestacion() {
+		return prestacion;
+	}
 }

@@ -38,5 +38,9 @@ public class CalendarioTurnos {
 		}
 		return disponibilidad;
 	}
+	
+	public ArrayList<Turno> obtenerTurnos() {
+		return turnos;
+	}
 
 }
