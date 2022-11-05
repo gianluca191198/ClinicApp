@@ -11,9 +11,9 @@ public class CalendarioTurnos {
 		this.medico = medico;
 	}
 	
-	public void reservarTurno(LocalDate fecha, LocalTime hora, Prestacion prestacion, Consultorio consultorio) {
+	public void reservarTurno(LocalDate fecha, LocalTime hora, Paciente paciente, Prestacion prestacion, Consultorio consultorio) {
 		if(comprobarDisponibilidad(fecha, hora)) {
-			turnos.add(new Turno(fecha, hora, medico, prestacion, consultorio));
+			turnos.add(new Turno(fecha, hora, paciente, medico, prestacion, consultorio));
 		}else {
 			System.out.println("Turno no disponible en la fecha y hora seleccionada");
 		}
@@ -41,6 +41,16 @@ public class CalendarioTurnos {
 	
 	public ArrayList<Turno> obtenerTurnos() {
 		return turnos;
+	}
+
+	public ArrayList<Turno> obtenerTurnosBrindados() {
+		ArrayList<Turno> turnosbrindados = new ArrayList<Turno>();
+		for(int i= 0; i < this.turnos.size(); i++) {
+			if(this.turnos.get(i).obtenerEstado() == Estado.CUMPLIDO ) {
+				turnosbrindados.add(turnos.get(i));
+			}
+		}
+		return turnosbrindados;
 	}
 
 }

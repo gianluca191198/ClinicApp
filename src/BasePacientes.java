@@ -52,7 +52,7 @@ public class BasePacientes {
 			
 			for (int i = 0; i < pacientes.size(); i++) {
 				Paciente paciente = pacientes.get(i);
-				escribir.write( paciente.nombre + ";" + Integer.toString(paciente.dni));
+				escribir.write( paciente.obtenerNombre() + ";" + Integer.toString(paciente.obtenertDni()));
 				escribir.write("\r\n");
 			}
 			
@@ -68,11 +68,24 @@ public class BasePacientes {
 	
 	public void eliminarPaciente(int dni) {
         for(int i = 0 ; i < pacientes.size();i++) {
-            if(pacientes.get(i).dni == dni) {
+            if(pacientes.get(i).obtenertDni() == dni) {
             	pacientes.remove(i);
             } else {
                 System.out.println("Paciente no encontrado");    
             }
         }
 	}
+	
+    public Paciente buscarPaciente(int dni) {
+    	Paciente paciente = null;
+        for(int i = 0 ; i < pacientes.size();i++) {
+            if(pacientes.get(i).obtenertDni() == dni) {
+            	paciente = pacientes.get(i);
+            } else {
+                System.out.println("Paciente no encontrado");    
+            }
+        }
+        
+		return paciente;
+    }
 }

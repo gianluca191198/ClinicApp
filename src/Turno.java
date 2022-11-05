@@ -10,16 +10,19 @@ public class Turno {
 	private LocalTime hora;
 	private LocalTime horaFin; 
 	private Medico medico;
-	private boolean asistio = false;
 	private Prestacion prestacion;
+	private Estado estado;
+	private Paciente paciente;
 	
-	public Turno(LocalDate fecha, LocalTime hora, Medico medico, Prestacion prestacion, Consultorio consultorio) {
+	public Turno(LocalDate fecha, LocalTime hora, Paciente paciente, Medico medico, Prestacion prestacion, Consultorio consultorio) {
 		this.fecha = fecha;
 		this.hora = hora;
 		this.horaFin = hora.plusMinutes(30);
 		this.medico = medico;
 		this.prestacion = prestacion;
 		this.consultorio = consultorio;
+		this.estado = Estado.ASIGNADO;
+		this.paciente = paciente;
 	}
 	
 	public LocalDate obtenerFecha() {
@@ -32,14 +35,6 @@ public class Turno {
 	
 	public LocalTime obtenerHoraFin() {
 		return horaFin;
-	}
-
-	public void marcarAsistencia() {
-		this.asistio = true;
-	}
-	
-	public boolean asistio() {
-		return asistio;
 	}
 	
 	public void marcarSobreTurno() {
@@ -56,5 +51,21 @@ public class Turno {
 	
 	public Prestacion obtenerPrestacion() {
 		return prestacion;
+	}
+	
+	public void cambiarEstado(Estado estado) {
+		this.estado = estado;
+	}
+	
+	public Estado obtenerEstado() {
+		return estado;
+	}
+
+	public Paciente obtenerPaciente() {
+		return paciente;
+	}
+
+	public Medico obtenerMedico() {
+		return medico;
 	}
 }
