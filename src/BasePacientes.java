@@ -71,14 +71,15 @@ public class BasePacientes {
 		return pacientes;
 	}
 	
-	public void eliminarPaciente(int dni) {
+	public Paciente eliminarPaciente(int dni) {
+		Paciente paciente = null;
         for(int i = 0 ; i < pacientes.size();i++) {
             if(pacientes.get(i).obtenertDni() == dni) {
+            	paciente = pacientes.get(i);
             	pacientes.remove(i);
-            } else {
-                System.out.println("Paciente no encontrado");    
             }
         }
+        return paciente;
 	}
 	
     public Paciente buscarPaciente(int dni) {

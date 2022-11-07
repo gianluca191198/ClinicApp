@@ -89,7 +89,8 @@ public class Menu {
     	while(continuarMenuAdministrativo) {
     		System.out.println("1. Reservar turno");
     		System.out.println("2. Guardar pacientes");
-    		System.out.println("3. Volver al menu principal");
+    		System.out.println("3. Eliminar paciente");
+    		System.out.println("4. Volver al menu principal");
     		switch (sn.nextInt()) {
     		case 1:
     			System.out.println("1. Paciente existente");
@@ -125,7 +126,15 @@ public class Menu {
 			case 2:
 				app.guardarPacientes();
 				break;
-    		case 3:
+			case 3:
+				System.out.println("Ingrese el dni del paciente a eliminar");
+				dni = sn.nextInt();
+				paciente = app.eliminarPaciente(dni);
+				if(paciente == null) {
+					System.out.println("Paciente no encontrado");
+				}
+				break;
+    		case 4:
     			continuarMenuAdministrativo = false;
     			break;
     		}

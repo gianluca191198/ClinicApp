@@ -95,7 +95,6 @@ class Tests {
 		Prestacion prestacion = new Estudio(Especialidad.CARDIOLOGIA);
 		Prestacion prestacion2 = new Tratamiento(Especialidad.ODONTOLOGIA);
 		
-		
 		medico.obtenerCalendarioTurnos().reservarTurno(dia, hora, paciente, prestacion, consultorio);
 		medico2.obtenerCalendarioTurnos().reservarTurno(dia, hora, paciente, prestacion2, consultorio2);
 		

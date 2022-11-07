@@ -27,8 +27,8 @@ public class App {
 	}
 	
 	
-	public void eliminarPaciente(int dni) {
-		pacientes.eliminarPaciente(dni);
+	public Paciente eliminarPaciente(int dni) {
+		return pacientes.eliminarPaciente(dni);
 	}
 	
 	public Paciente buscarPaciente(int dni) {
