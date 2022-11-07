@@ -13,8 +13,10 @@ public class Turno {
 	private Prestacion prestacion;
 	private Estado estado;
 	private Paciente paciente;
+	private int numeroTurno;
 	
 	public Turno(LocalDate fecha, LocalTime hora, Paciente paciente, Medico medico, Prestacion prestacion, Consultorio consultorio) {
+		this.numeroTurno = (int) (Math.random() * 10000);
 		this.fecha = fecha;
 		this.hora = hora;
 		this.horaFin = hora.plusMinutes(30);
@@ -67,5 +69,9 @@ public class Turno {
 
 	public Medico obtenerMedico() {
 		return medico;
+	}
+
+	public int obtenerNumeroTurno() {
+		return numeroTurno;
 	}
 }

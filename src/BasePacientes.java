@@ -40,9 +40,14 @@ public class BasePacientes {
 		return instancia;
 	}
 	
-	public void agregarPaciente(String nombre, int dni) {
-		Paciente paciente = new Paciente(nombre, dni);
-		pacientes.add(paciente);
+	public Paciente agregarPaciente(String nombre, int dni) {
+		Paciente paciente = null;
+		if(buscarPaciente(dni) == null) {
+			paciente = new Paciente(nombre, dni);
+			pacientes.add(paciente);
+		}
+		return paciente;
+		
 	}
 	
 	public void guardarPacientes() {
@@ -81,8 +86,6 @@ public class BasePacientes {
         for(int i = 0 ; i < pacientes.size();i++) {
             if(pacientes.get(i).obtenertDni() == dni) {
             	paciente = pacientes.get(i);
-            } else {
-                System.out.println("Paciente no encontrado");    
             }
         }
         

@@ -11,12 +11,13 @@ public class CalendarioTurnos {
 		this.medico = medico;
 	}
 	
-	public void reservarTurno(LocalDate fecha, LocalTime hora, Paciente paciente, Prestacion prestacion, Consultorio consultorio) {
+	public Turno reservarTurno(LocalDate fecha, LocalTime hora, Paciente paciente, Prestacion prestacion, Consultorio consultorio) {
+		Turno turno = null;
 		if(comprobarDisponibilidad(fecha, hora)) {
-			turnos.add(new Turno(fecha, hora, paciente, medico, prestacion, consultorio));
-		}else {
-			System.out.println("Turno no disponible en la fecha y hora seleccionada");
+			turno = new Turno(fecha, hora, paciente, medico, prestacion, consultorio);
+			turnos.add(turno);
 		}
+		return turno;
 	}
 	
 	public boolean comprobarDisponibilidad(LocalDate fecha, LocalTime hora ) {
@@ -25,13 +26,13 @@ public class CalendarioTurnos {
 		if(fecha.getDayOfWeek().getValue() == 6 || fecha.getDayOfWeek().getValue() == 7) {
 			return false;
 		}
-		if(hora.compareTo(medico.obtenerHoraComienzoTurnoLaboral()) < 0 && hora.compareTo(medico.obtenerHoraFinTurnoLaboral()) > 0 ) {
+		if(hora.compareTo(medico.obtenerHoraComienzoTurnoLaboral()) < 0 || hora.compareTo(medico.obtenerHoraFinTurnoLaboral()) >= 0 ) {
 			return false;
 		}
 		
 		for(int i = 0; i < turnos.size(); i++) {
-			if(turnos.get(i).obtenerFecha() == fecha) {
-				if(hora.compareTo(turnos.get(i).obtenerHora()) > 0 && hora.compareTo(turnos.get(i).obtenerHoraFin()) < 0 ) {
+			if(turnos.get(i).obtenerFecha().compareTo(fecha) == 0) {
+				if(hora.compareTo(turnos.get(i).obtenerHora()) >= 0 && hora.compareTo(turnos.get(i).obtenerHoraFin()) < 0 ) {
 					disponibilidad = false;
 				}
 			}

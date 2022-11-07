@@ -1,2 +1,5 @@
 Gian Luca Bellone;41463608
-Marcos Macagna;40000000
+Marcos Macagna;37294732
+Lionel Messi; 30000000
+Lautaro Martinez; 20000000
+Rodrigo De Paul; 10000000

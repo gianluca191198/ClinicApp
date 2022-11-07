@@ -20,7 +20,7 @@ class Tests {
 	@Test
 	void comprobarDisponibilidadDiaSabadoODomingoNoDisponible() {		
 		Consultorio consultorioCardiologia = new ConsultorioTradicional("Consultorio de Cardiologia", Especialidad.CARDIOLOGIA);
-		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorioCardiologia);
+		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorioCardiologia, 1);
 		CalendarioTurnos calendario = new CalendarioTurnos(medico);
 		LocalDate sabado = LocalDate.parse("2022-10-29"); 
 		LocalDate domingo = LocalDate.parse("2022-10-30");
@@ -35,7 +35,7 @@ class Tests {
 	@Test
 	void comprobarDisponibilidadDiasHabilesDisponible() {
 		Consultorio consultorioCardiologia = new ConsultorioTradicional("Consultorio de Cardiologia", Especialidad.CARDIOLOGIA);
-		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorioCardiologia);
+		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorioCardiologia, 1);
 		CalendarioTurnos calendario = new CalendarioTurnos(medico);
 		LocalDate lunes = LocalDate.parse("2022-10-24");
 		LocalDate martes = LocalDate.parse("2022-10-25"); 
@@ -55,8 +55,8 @@ class Tests {
 	void comprobarDisponibilidadDiaHabilHorarioNoLaboralNoDisponible() {
 		Consultorio consultorioCardiologia = new ConsultorioTradicional("Consultorio de Cardiologia", Especialidad.CARDIOLOGIA);
 		
-		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorioCardiologia);
-		Medico medico2 = new Medico("Favaloro2", TurnoLaboral.TARDE, Especialidad.CARDIOLOGIA, consultorioCardiologia);
+		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorioCardiologia, 1);
+		Medico medico2 = new Medico("Favaloro2", TurnoLaboral.TARDE, Especialidad.CARDIOLOGIA, consultorioCardiologia, 2);
 		
 		CalendarioTurnos calendario = medico.obtenerCalendarioTurnos();
 		CalendarioTurnos calendario2 = medico2.obtenerCalendarioTurnos();
@@ -88,21 +88,21 @@ class Tests {
 		Consultorio consultorio = new Laboratorio("Lab1", Especialidad.CARDIOLOGIA);
 		Consultorio consultorio2 = new ConsultorioTradicional("Cons1", Especialidad.ODONTOLOGIA);	
 		
-		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorio);
+		Medico medico = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorio, 1);
+		Medico medico2 = new Medico("Favaloro", TurnoLaboral.MANIANA, Especialidad.CARDIOLOGIA, consultorio2, 2);
 		CalendarioTurnos calendario = medico.obtenerCalendarioTurnos();
 		
 		Prestacion prestacion = new Estudio(Especialidad.CARDIOLOGIA);
 		Prestacion prestacion2 = new Tratamiento(Especialidad.ODONTOLOGIA);
 		
 		
-		calendario.reservarTurno(dia, hora, paciente, prestacion, consultorio);
-		calendario.reservarTurno(dia, hora, paciente, prestacion2, consultorio2);
+		medico.obtenerCalendarioTurnos().reservarTurno(dia, hora, paciente, prestacion, consultorio);
+		medico2.obtenerCalendarioTurnos().reservarTurno(dia, hora, paciente, prestacion2, consultorio2);
 		
-		assertEquals(calendario.obtenerTurnos().get(0).obtenerConsultorio(), consultorio);
-		assertEquals(calendario.obtenerTurnos().get(0).obtenerPrestacion(), prestacion);
-		assertEquals(calendario.obtenerTurnos().get(1).obtenerConsultorio(), consultorio2);
-		assertEquals(calendario.obtenerTurnos().get(1).obtenerPrestacion(), prestacion2);
-
+		assertEquals(medico.obtenerCalendarioTurnos().obtenerTurnos().get(0).obtenerConsultorio(), consultorio);
+		assertEquals(medico.obtenerCalendarioTurnos().obtenerTurnos().get(0).obtenerPrestacion(), prestacion);
+		assertEquals(medico2.obtenerCalendarioTurnos().obtenerTurnos().get(0).obtenerConsultorio(), consultorio2);
+		assertEquals(medico2.obtenerCalendarioTurnos().obtenerTurnos().get(0).obtenerPrestacion(), prestacion2);
 	}
 	
 	@Test
@@ -112,14 +112,16 @@ class Tests {
 		app.agregarPaciente("Lautaro Martinez", 20000000);
 		app.agregarPaciente("Rodrigo De Paul", 10000000);
 		
-		app.reservarTurnoEstudio("2022-11-19","12:00:00" , 30000000, Especialidad.RADIOGRAFIAS);
-		app.reservarTurnoEstudio("2022-11-19","11:00:00" , 20000000, Especialidad.RADIOGRAFIAS);
-		app.reservarTurnoEstudio("2022-11-19","13:00:00" , 10000000, Especialidad.RADIOGRAFIAS);
+		Turno turno1 = app.reservarTurnoEstudio(LocalDate.parse("2022-11-18"), LocalTime.parse("12:00:00") , 30000000, Especialidad.RADIOGRAFIAS);
+		Turno turno2 = app.reservarTurnoEstudio(LocalDate.parse("2022-11-18"), LocalTime.parse("11:00:00") , 20000000, Especialidad.RADIOGRAFIAS);
+		Turno turno3 = app.reservarTurnoEstudio(LocalDate.parse("2022-11-18"), LocalTime.parse("13:00:00") , 10000000, Especialidad.RADIOGRAFIAS);
 		
 		Medico medico = app.obtenerMedicoPorEspecialidadYTurno(Especialidad.RADIOGRAFIAS, TurnoLaboral.MANIANA);
 		
-		//genera mal el reporte: hay que cambiar el estado de los turnos a cumplidos
-		
+		medico.cambiarEstadoTurno(turno1.obtenerNumeroTurno(), Estado.CUMPLIDO);
+		medico.cambiarEstadoTurno(turno2.obtenerNumeroTurno(), Estado.CUMPLIDO);
+		medico.cambiarEstadoTurno(turno3.obtenerNumeroTurno(), Estado.CUMPLIDO);
+				
 		medico.generarReportePrestacionesBrindadas();
 		
 	}
