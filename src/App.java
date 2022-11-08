@@ -10,35 +10,59 @@ public class App {
 	final private int claveAdmin = 123412;
 	Hashtable<Especialidad, Integer> precioPrestacion = new Hashtable<Especialidad, Integer>();
 
+	/*
+	 * Se crea la app junto con la base de pacientes, la carga de medicos y consultorios 
+	 * y el precio de las prestaciones.
+	 */
 	public App() {
 		pacientes = BasePacientes.obtenerInstancia();	
 		cargarMedicosYConsultorios();
 		cargarPrecioPrestacion();
 	}
 	
+	/*
+	 * PRE: **especialidad** tiene que ser una especialidad de las contempladas.
+	 * POST: Paga un turno de la especialidad **especialidad**
+	 */
 	public void pagarPrestacion(Especialidad especialidad) {
 		System.out.println("El monto a pagar es: " + precioPrestacion.get(especialidad));
 		System.out.println("Procesando pago...");
 		System.out.println("Pago realizado con exito");
 	}
 	
+	/*
+	 * POST: Agrega un paciente de nombre **nombre** y dni **dni** a la base de datos de pacientes.
+	 */
 	public Paciente agregarPaciente(String nombre, int dni) {
 		return pacientes.agregarPaciente(nombre , dni);
 	}
 	
-	
+	/*
+	 * PRE: el dni **dni** tiene que estar presente en la base de datos de pacientes.
+	 * POST: Elimina un paciente con dni **dni** de la base de datos de pacientes.
+	 */
 	public Paciente eliminarPaciente(int dni) {
 		return pacientes.eliminarPaciente(dni);
 	}
 	
+	/*
+	 * POST: Busca un paciente con dni **dni** en la base de datos de pacientes.
+	 */
 	public Paciente buscarPaciente(int dni) {
 		return pacientes.buscarPaciente(dni);
 	}
 	
+	/*
+	 * POST: Guarda la base de datos actual de pacientes.
+	 */
 	public void guardarPacientes() {
 		pacientes.guardarPacientes();
 	}
 	
+	/*
+	 * POST: Verifica si la clave ingresada como administrador en el menu, es correcta y lo muestra en pantalla.
+	 * 		 De no ser asi, devolvera un mensaje indicando lo contrario.
+	 */
 	public boolean verificarClaveAdmin(int clave) {
 		if(this.claveAdmin == clave) {
 			System.out.println("Autenticacion exitosa");
@@ -49,8 +73,11 @@ public class App {
 	}
 	
 	/*
-	 * Pre: **fecha** debe tener el formato "aaaa-mm-dd" 
+	 * PRE: **fecha** debe tener el formato "aaaa-mm-dd" 
 	 * 		**hora** debe tener el formato "hh:mm:ss"
+	 * 		**especialidad** debe ser una de las especialidades contempladas.
+	 * POST: Reserva un turno para un estudio en la fecha **fecha**, hora **horario**, para el paciente con dni
+	 * 		 **dniPaciente**, en la especialidad **especialidad**.
 	 */
 	public Turno reservarTurnoEstudio(LocalDate fecha, LocalTime horario, int dniPaciente, Especialidad especialidad) {
 		Paciente paciente = pacientes.buscarPaciente(dniPaciente);
@@ -65,8 +92,11 @@ public class App {
 	}
 	
 	/*
-	 * Pre: **fecha** debe tener el formato "aaaa-mm-dd" 
+	 * PRE: **fecha** debe tener el formato "aaaa-mm-dd" 
 	 * 		**hora** debe tener el formato "hh:mm:ss"
+	 * 		**especialidad** debe ser una de las especialidades contempladas.
+	 * POST: Reserva un turno para tratamiento en la fecha **fecha**, hora **horario**, para el paciente con dni
+	 * 		 **dniPaciente**, en la especialidad **especialidad**.
 	 */
 	public Turno reservarTurnoTratamiento(LocalDate fecha, LocalTime horario, int dniPaciente, Especialidad especialidad) {
 		
@@ -85,6 +115,10 @@ public class App {
 		
 	}
 	
+	/*
+	 * PRE: **especialidad** debe ser una de las especialidades contempladas.
+	 * POST: Devuelve un médico de la especialidad **especialidad**, en el turno **turno**.
+	 */
 	public Medico obtenerMedicoPorEspecialidadYTurno(Especialidad especialidad, TurnoLaboral turno) {
 		Medico medico = null;
 		for(int i = 0; i < medicos.size(); i++) {
@@ -97,6 +131,10 @@ public class App {
 		return medico;
 	}
 	
+	/*
+	 * POST: Carga todos los consultorios (ya sean consultorios tradicionales, como laboratorios) de cada especialidad, 
+	 * 		 con sus respectivos médicos (los cuales también se cargan con sus id's) en los horarios de la mañana y de la tarde.
+	 */
 	private void cargarMedicosYConsultorios() {
 		Consultorio laboratorioRayosX = new Laboratorio("Laboratorio de rayos x", Especialidad.RADIOGRAFIAS);
 		Consultorio laboratorioExtraccionSangre = new Laboratorio("Laboratorio de sangre", Especialidad.EXTRACCION_SANGRE);
@@ -128,6 +166,9 @@ public class App {
 		medicos.add(new Medico("Milagros", TurnoLaboral.TARDE, Especialidad.TRAUMATOLOGIA, consultorioTraumatologia, 14));
 	}
 	
+	/*
+	 * POST: Carga el precio que hay que abonar por cada especialidad.
+	 */
 	private void cargarPrecioPrestacion() {
 		this.precioPrestacion.put(Especialidad.CARDIOLOGIA, 2500);
 		this.precioPrestacion.put(Especialidad.ODONTOLOGIA, 2500);
@@ -138,6 +179,11 @@ public class App {
 		this.precioPrestacion.put(Especialidad.RESONANCIA_MAGNETICA, 10000);
 	}
 	
+	/*
+	 * PRE: **hora** debe tener el formato "hh:mm:ss"
+	 * POST: Dependiendo la hora que se ingrese por parámetro,
+	 * 		 devuelve si la misma pertenece al turno mañana o al turno tarde.
+	 */
 	private TurnoLaboral obtenerTurnoLaboralPorHorario(LocalTime hora) {
 		if(hora.compareTo(LocalTime.parse("16:00:00")) > 0) {
 			return TurnoLaboral.TARDE;
@@ -146,6 +192,9 @@ public class App {
 		}
 	}
 	
+	/*
+	 * POST: Verifica si el entero **idMedico** pertenece a un id válido de médico.
+	 */
 	public Medico verificarMedico(int idMedico) {
 		Medico medico = null;
 		for(int i = 0; i < medicos.size(); i++) {

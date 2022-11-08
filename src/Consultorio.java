@@ -8,6 +8,9 @@ public abstract class Consultorio {
 	
 	public void generarReporte() {}
 	
+	/*
+	 * POST: Devuelve la especialidad del consultorio.
+	 */
 	public Especialidad obtenerEspecialidad() {
 		return this.especialidad;
 	}

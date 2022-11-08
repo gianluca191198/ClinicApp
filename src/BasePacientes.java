@@ -15,6 +15,9 @@ public class BasePacientes {
 	
 	private static BasePacientes instancia = null;
 	
+	/*
+	 * Escanea el archivo .txt donde se encuentran los pacientes.
+	 */
 	private BasePacientes() {
 		int posicion = 0;
 		try {
@@ -33,6 +36,9 @@ public class BasePacientes {
 		}
 	}
 	
+	/*
+	 * Crea una base de pacientes.
+	 */
 	public static BasePacientes obtenerInstancia() {
 		if(instancia == null) {
 			instancia = new BasePacientes();
@@ -40,6 +46,9 @@ public class BasePacientes {
 		return instancia;
 	}
 	
+	/*
+	 * POST: Agrega un paciente de nombre **nombre** y dni **dni** al ArrayList de pacientes y lo devuelve.
+	 */
 	public Paciente agregarPaciente(String nombre, int dni) {
 		Paciente paciente = null;
 		if(buscarPaciente(dni) == null) {
@@ -50,6 +59,9 @@ public class BasePacientes {
 		
 	}
 	
+	/*
+	 * POST: Guarda la base de datos actual de pacientes.
+	 */
 	public void guardarPacientes() {
         FileWriter escribir;
 		try {
@@ -67,10 +79,16 @@ public class BasePacientes {
 		}
 	}
 	
+	/*
+	 * POST: Devuelve los pacientes del ArrayList de pacientes.
+	 */
 	public ArrayList<Paciente> obtenerPacientes() {
 		return pacientes;
 	}
 	
+	/*
+	 * POST: Elimina un paciente con dni **dni** del ArrayList de pacientes y lo devuelve.
+	 */
 	public Paciente eliminarPaciente(int dni) {
 		Paciente paciente = null;
         for(int i = 0 ; i < pacientes.size();i++) {
@@ -82,6 +100,9 @@ public class BasePacientes {
         return paciente;
 	}
 	
+	/*
+	 * POST: Busca si el paciente con dni **dni** se encuentra en el ArrayList de pacientes y lo devuelve.
+	 */
     public Paciente buscarPaciente(int dni) {
     	Paciente paciente = null;
         for(int i = 0 ; i < pacientes.size();i++) {
