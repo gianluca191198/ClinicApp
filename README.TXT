@@ -31,7 +31,7 @@ Cristian, TurnoLaboral = MANIANA, Especialidad = TRAUMATOLOGIA, consultorioTraum
 Milagros, TurnoLaboral = TARDE, Especialidad = TRAUMATOLOGIA, consultorioTraumatologia, ID MEDICO = 14
 
 Pacientes cargados por default:
-Gian Luca Bellone, DNI: 41463608
-Marcos Macagna, DNI: 37294732
+Gian Luca Bellone, DNI: 11111111
+Marcos Macagna, DNI: 22222222
 Lautaro Martinez, DNI: 20000000
 Rodrigo De Paul, DNI: 10000000
