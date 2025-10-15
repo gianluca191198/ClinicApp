@@ -1,5 +1,5 @@
-Gian Luca Bellone;41463608
-Marcos Macagna;37294732
+Gian Luca Bellone;11111111
+Marcos Macagna;22222222
 Lionel Messi;33016244
 Lautaro Martinez;20000000
 Rodrigo De Paul;10000000
